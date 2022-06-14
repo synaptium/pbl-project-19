@@ -84,7 +84,7 @@ sudo yum install -y python38
 
  ansible-playbook -i inventory/aws_ec2.yml playbooks/site.yml --graph
 
-G to aws and copy the dns name for the load balancer.
+Go to aws and copy the dns name for the load balancer.
 
 ![alt text](./load.png)
 
@@ -93,18 +93,93 @@ G to aws and copy the dns name for the load balancer.
  Go to rds and copy the endpoints
 
 
+![alt text](./rds.png)
+
+Go to tooling/tasks/setup-db.yml and replace
+
+![alt text](./rdsend.png)
+
+edit the same thing in wordpress/tasks/setup-db.yml
+
+Now to edit the mouting file share system.
+
+Go to Efs on amazon
+
+We have access points for wordpress and access points for tooling
+
+For wordpress
+
+![alt text](./efsword.png)
+
+For tooling
+
+![alt text](./tooling.png)
+
+Edit wordpress/tasks/main.yml
+
+![alt text](./efsw.png)
+
+Do same for tooling
+
+![alt text](./efst.png)
+
+Pushed it.
+
+So
+
+Now i logged in to the bastion server via remote ssh
+
+Go to ansible folder and run
+
+ansible-playbook -i inventory/aws_ec2.yml playbooks/site.yml
 
 
 
+![alt text](./ansible.png)
 
+![alt text](./ansible2.png)
 
-Now i logged in to the bastion server via ssh, then entered nginx via ssh agent
-
-
-
-
-
+![alt text](./ansible3.png)
 
 
 
+Now login to the bastion on a seperate window via ssh
 
+Now from there access the nginx server 
+
+chck to make sure nginx is instaled and running by typing
+
+sudo systemctl status nginx
+
+![alt text](./nginx2.png)
+
+Run sudo vi /etc/nginx/nginx.conf to edit the nginx config file
+
+Login to nginx and tooling via ssh and do df -h
+
+
+![alt text](./dfh.png)
+
+
+Run curl in your wordpress server
+
+![alt text](./curl.png)
+
+
+![alt text](./curl2.png)
+
+
+See database is not connected.
+
+So we run sudo vi wp-config.php to edit
+
+![alt text](./confiig.png)
+
+Do some edits on the files and push - see davids video
+
+Sites load
+
+
+![alt text](./word.png)
+
+![alt text](./toolinghome.png)
